@@ -1,5 +1,5 @@
 {
-  "name": "template-actions-and-dialogs",
+  "name": "template-action-and-dialog",
   "version": "1.0.0",
   "description": "Sample Slack app that responds to an action with an interactive message",
   "main": "index.js",
@@ -10,7 +10,8 @@
   "keywords": [
     "bot",
     "slack",
-    "chatbot"
+    "chatbot",
+    "slack API"
   ],
   "author": "Tomomi Imura",
   "license": "MIT",
