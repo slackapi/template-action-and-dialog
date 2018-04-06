@@ -1,4 +1,4 @@
-# Message actions and dialogs blueprint
+# Message Action and Dialog Blueprint
 ​
 By registering your app's capabilities as message actions, users can pick and choose messages to send to your app so you can do something useful with them. Store these messages in a virtual trapper keeper, feed them to your internal markov chain bot, or file away information about an important lead.
 
@@ -11,12 +11,13 @@ This Slack app allows users to "clip" a message posted on Slack by using the act
 When a user hover a message then choose "Clip the message" from the action menu, a dialog pops open.
 The message text is pre-populated into the dialog box, but the user can edit before submitting it too.
 Once a user finalize the form and submit the form, the app DMs the user with the confirmation.
+
 ​
 ![ClipIt](https://github.com/slackapi/template-action-and-dialog/blob/master/images/screen.gif?raw=true)
 ​
 ## Setup
 ​
-#### Create a Slack app
+### Create a Slack app
 ​
 1. Create an app at https://api.slack.com/apps?new_app_token=1
 2. Navigate to the OAuth & Permissions page and add the following scopes:
