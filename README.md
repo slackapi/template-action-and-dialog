@@ -12,7 +12,7 @@ When a user hover a message then choose "Clip the message" from the action menu,
 The message text is pre-populated into the dialog box, but the user can edit before submitting it too.
 Once a user finalize the form and submit the form, the app DMs the user with the confirmation.
 ​
-![ClipIt]()
+![ClipIt](https://github.com/slackapi/template-action-and-dialog/blob/master/images/screen.gif?raw=true)
 ​
 ## Setup
 ​
