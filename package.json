@@ -1,0 +1,24 @@
+{
+  "name": "template-actions-and-dialogs",
+  "version": "1.0.0",
+  "description": "Sample Slack app that responds to an action with an interactive message",
+  "main": "index.js",
+  "scripts": {
+    "start": "nf start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot",
+    "slack",
+    "chatbot"
+  ],
+  "author": "Tomomi Imura",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
+    "qs": "^6.5.1"
+  }
+}
