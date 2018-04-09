@@ -1,0 +1,51 @@
+# Message Action and Dialog Blueprint
+
+Allow users to export a message in Slack to a 3rd party system (a fictional app called, *ClipIt*) using
+a [message actions](https://api.slack.com/actions) and a [Dialog](https://api.slack.com/dialogs).
+
+This app blueprint assumes you have your 3rd party system already &mdash;
+To just give you a quick idea, in this code sample each selected message is added in a JSON to be exported to your external app.
+
+
+## How it works
+
+#### 1. Receive action events from Slack
+
+When a user executes the message action associated with the app, Slack will send a POST request to the request URL provided in the app settings. This request will include the message text in the payload. The `command` scope is used for the message action.
+
+Payload example:
+```JSON
+{  
+  "token": "Nj2rfC2hU8mAfgaJLemZgO7H",
+  "callback_id": "clipit",
+  "type": "message_action",
+  "trigger_id": "13345224609.8534564800.6f8ab1f53e13d0cd15f96106292d5536",
+  "response_url": "https://hooks.dev.slack.com/app-actions/T0MJR11A4/21974584944/yk1S9ndf35Q1flupVG5JbpM6",
+  "team": {...},
+  "channel": {...},
+  "user": {  
+    "id": "U0D15K92L",
+    "name": "dr_maomao"
+  },
+  "message": {
+    "type": "message",
+    "user": "U0MJRG1AL",
+    "ts": "1516229207.000133",
+    "text": "This is an important message..."
+  }
+}
+```
+
+The payload also include the user ID of the person who originally posted the message. This example app uses the ID to call `users.info` method to get the person's full name. You can obtain more info of the user like avatar, if you wish. See [`users.info`](https://api.slack.com/methods/users.info).
+
+#### 2. Open a Dialog
+
+In order to let the user to edit the message to be saved in the 3rd party app, the app will open a Dialog in Slack. When the user submits the Dialog, Slack will send a POST request to the same request URL used for the message action. To differentiate which action triggers the event, parse the payload and check the `type`.
+
+#### 3. Confirm the user
+
+Once the user submit the dialog, this example app export the message in a JSON (where you probably want to do something else to work with your own app and service, such as save in a DB). In the meantime, the app notifies the user by sending a DM using `chat.postMessage` method. To do so, you need to enable the `users:read` scope.
+
+## Diagram
+
+![Dialog](images/actions_and_dialogs.png)
