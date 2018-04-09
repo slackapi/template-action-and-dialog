@@ -2,23 +2,32 @@
 ​
 By registering your app's capabilities as message actions, users can pick and choose messages to send to your app so you can do something useful with them. Store these messages in a virtual trapper keeper, feed them to your internal markov chain bot, or file away information about an important lead.
 
-## Creating a hypothetical "ClipIt" app using an action and a dialog
+## Creating "ClipIt" app using an action and a dialog
 
-This Slack app allows users to "clip" a message posted on Slack by using the actions to export the message to the 3rd party app/service, let's say ClipIt! web app.
+![App icon](images/icon_small.png) This fictional Slack app, "ClipIt" allows users to "clip" a message posted on Slack by using the actions to export the message to JSON to be used in the external 3rd party app/service, let's say, "ClipIt web app".
 
-### User Flow
+### Developer Use-Cases
+
+If you are developing apps like memo / note-taking app, collaborative doc app, this sample use-case would be a nice addition to your Slack app.
+
+Also, the message action would be great for:
+
+- Bug / issue tracking app (*e.g.* "Create a ticket from the message")
+- To-Do app (*e.g.* "Create a to-do")
+- Project management app (*e.g.* "Attach to task")
+- Social media (*e.g.* "Post it to [my social media] App")
+
+### User Work Flow
 
 When a user hover a message then choose "Clip the message" from the action menu, a dialog pops open.
 The message text is pre-populated into the dialog box, but the user can edit before submitting it too.
-Once a user finalize the form and submit the form, the app DMs the user with the confirmation.
+Once a user finalize the form and submit, the app DMs the user with the confirmation. 
 
 ​
 ![ClipIt](https://github.com/slackapi/template-action-and-dialog/blob/master/images/screen.gif?raw=true)
-​
+
 ## Setup
-​
 ### Create a Slack app
-​
 1. Create an app at https://api.slack.com/apps?new_app_token=1
 2. Navigate to the OAuth & Permissions page and add the following scopes:
     * `commands`
