@@ -21,7 +21,7 @@ Also, the message action would be great for:
 
 When a user hover a message then choose "Clip the message" from the action menu, a dialog pops open.
 The message text is pre-populated into the dialog box, but the user can edit before submitting it too.
-Once a user finalize the form and submit, the app DMs the user with the confirmation. 
+Once a user finalize the form and submit, the app DMs the user with the confirmation.
 
 ​
 ![ClipIt](https://github.com/slackapi/template-action-and-dialog/blob/master/images/screen.gif?raw=true)
@@ -32,6 +32,7 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
 2. Navigate to the OAuth & Permissions page and add the following scopes:
     * `commands`
     * `users:read`
+    * `chat:write`
 3. Click 'Save Changes' and install the app
 ​
 #### Run locally or [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/slack-action-and-dialogs-blueprint)
