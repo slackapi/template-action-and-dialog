@@ -1,9 +1,9 @@
 # Message Action and Dialog Blueprint
 
-Allow users to export a message in Slack to a 3rd party system (a fictional app called, *ClipIt*) using
+This demo app allow users to export a message in Slack from the message action menu to a 3rd party system (let's call the fictional app *ClipIt*) using
 a [message actions](https://api.slack.com/actions) and a [Dialog](https://api.slack.com/dialogs).
 
-This app blueprint assumes you have your 3rd party system already &mdash;
+Assumeing you have your 3rd party note-keeping app with database setup already &mdash; 
 To just give you a quick idea, in this code sample each selected message is added in a JSON to be exported to your external app.
 
 
@@ -25,13 +25,13 @@ Payload example:
   "channel": {...},
   "user": {  
     "id": "U0D15K92L",
-    "name": "dr_maomao"
+    "name": "dr_meow"
   },
   "message": {
     "type": "message",
     "user": "U0MJRG1AL",
     "ts": "1516229207.000133",
-    "text": "This is an important message..."
+    "text": "Can you order a tuna with cheese and lactose-free milk for me, please?"
   }
 }
 ```

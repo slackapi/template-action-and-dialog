@@ -24,7 +24,7 @@ The message text is pre-populated into the dialog box, but the user can edit bef
 Once a user finalize the form and submit, the app DMs the user with the confirmation.
 
 ​
-![ClipIt](https://github.com/slackapi/template-action-and-dialog/blob/master/images/screen.gif?raw=true)
+![ClipIt](https://cdn.glitch.com/441299e3-79ff-44b2-9688-4ade057797c8%2Fscreen_actions_dialogs_demo.gif?1526686807617)
 
 ## Setup
 ### Create a Slack app
