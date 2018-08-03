@@ -23,7 +23,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 });
 
 const slackVerificationToken = process.env.SLACK_VERIFICATION_TOKEN;
-const slackAuthToken = process.env.SLACK_AUTH_TOKEN;
+const slackAuthToken = process.env.SLACK_ACCESS_TOKEN;
 
 const apiUrl = 'https://slack.com/api';
 

@@ -39,7 +39,7 @@ const sendConfirmation = (userId, data) => {
    ];
 
    let message = {
-     token: process.env.SLACK_AUTH_TOKEN,
+     token: process.env.SLACK_ACCESS_TOKEN,
      channel: userId,
      attachments: JSON.stringify(attachments)
    };

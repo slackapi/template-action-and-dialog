@@ -4,7 +4,7 @@ const axios = require('axios');
 const qs = require('qs');
 
 const apiUrl = 'https://slack.com/api';
-const slackAuthToken = process.env.SLACK_AUTH_TOKEN;
+const slackAuthToken = process.env.SLACK_ACCESS_TOKEN;
 
 /*
  *  Get user info from users.info method
