@@ -3,12 +3,12 @@
 const fs = require('fs');
 
 /*
- *  Send confirmation creation confirmation via
- *  chat.postMessage to the user who created it
+ *  Create a json file that stored the copied Slack message for each user
+ *  Ideally, you should be using a DB. 
  */
 
-const exportToJson = (submission) => {
-  const fileName = 'clip.json';
+const exportToJson = (userId, submission) => {
+  const fileName = `clip_${userId}.json`;
 
   fs.open(fileName, 'r', (err, data) => {
     if (err) {

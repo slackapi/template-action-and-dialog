@@ -1,0 +1,29 @@
+# What's New? - Updates from the Previous Example
+
+Now all the Blueprints examples have been updated with new Slack platform features also switched to the [workspace token](https://api.slack.com/docs/working-with-workspace-tokens) model. So what are the *diffs* in this updated example?
+
+## Creating an app
+
+To create a new "workspace app" at [https://api.slack.com/apps?new_app_token=1](https://api.slack.com/apps?new_app_token=1), instead of using the previous App creation page.
+
+## OAuth Token
+
+Your OAuth access token should begins with `-xoxa`, instead of `-xoxp`.
+
+
+## Installation and Permission
+
+When a user is installing your app, the user will be ask to choose which channel(s) to install. After the installation, the app name appears under "Apps" at the menu pane on Slack client, and this is now called `app_home`, a where your app can send DM to the user who installed your app. 
+
+Also, your slash command is only available on the channels that your app is installed, unless some user adds it on other channels.
+
+
+## Sigining Secret 
+
+*This requires to update your code!*
+
+Previously, you needed to verify a *verificatin token* to see if a request was coming from Slack, not from some malicious place by simply comparing a string with the legacy token with a token received with a payload. But now you must use more secure *sigining secrets*.
+
+Basically, you need to compare the value of the `X-Slack-Signature`, the HMAC-SHA256 keyed hash of the raw request payload, with a hashed string containing your Slack signin secret code, combined with the version and `X-Slack-Request-Timestamp`. 
+
+Learn more at [Verifying requests from Slack](https://api.slack.com/docs/verifying-requests-from-slack).

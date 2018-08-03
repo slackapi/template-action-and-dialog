@@ -1,5 +1,11 @@
 # Message Action and Dialog Blueprint
 ​
+
+*Updated August 2018: As we have introduced the workspace app (currently in beta), this tutorial and the code samples have been updated using the new token model! All the changes from the previous version of this example, read the [DIFF.md](DIFF.md)*
+
+*Learn more about the workspace app at the [Slack API doc](https://api.slack.com/workspace-apps-preview).*
+
+
 By registering your app's capabilities as message actions, users can pick and choose messages to send to your app so you can do something useful with them. Store these messages in a virtual trapper keeper, feed them to your internal markov chain bot, or file away information about an important lead.
 
 ## Creating "ClipIt" app using an action and a dialog
@@ -41,10 +47,8 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
     * Either clone this repo and run `npm install`
     * Or visit https://glitch.com/edit/#!/remix/slack-action-and-dialogs-blueprint
 2. Set the following environment variables to `.env` with your API credentials (see `.env.sample`):
-    * `SLACK_CLIENT_ID`: client ID (available at **Basic Information**)
-    * `SLACK_CLIENT_SECRET`: client secret (available at **Basic Information**)
-    * `SLACK_VERIFICATION_TOKEN`: Your app's Verification Token (available at **Basic Information**)
-    * `SLACK_ACCESS_TOKEN`: Your app's `xoxa-` workspace token (available once you install your app to a workspace)  
+    * `SLACK_ACCESS_TOKEN`: Your app's `xoxa-` token (available on the Install App page)
+    * `SLACK_SIGNING_SECRET`: Your app's Signing Secret (available on the **Basic Information** page)to a workspace)  
 3. If you're running the app locally:
     1. Start the app (`npm start`)
     1. In another window, start ngrok on the same port as your webserver
@@ -57,7 +61,7 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
       * Action Name: `Clip the message`
       * Description: `Save this message to ClipIt! app`
       * Callback ID: `clipit`
-3. Save and reinstall the app
+3. Save
 ​
 
 ​

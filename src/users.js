@@ -4,7 +4,6 @@ const axios = require('axios');
 const qs = require('qs');
 
 const apiUrl = 'https://slack.com/api';
-const slackAuthToken = process.env.SLACK_AUTH_TOKEN;
 
 /*
  *  Get user info from users.info method
@@ -12,7 +11,7 @@ const slackAuthToken = process.env.SLACK_AUTH_TOKEN;
 
 const find = (userId) => {
   const data = {
-    token: slackAuthToken,
+    token: process.env.SLACK_ACCESS_TOKEN,
     user: userId
   };
   const promise = axios.post(`${apiUrl}/users.info`, qs.stringify(data));
