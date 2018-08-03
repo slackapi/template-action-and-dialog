@@ -2,35 +2,36 @@
 
 const axios = require('axios');
 const qs = require('qs');
-const users = require('./users');
 
 const apiUrl = 'https://slack.com/api';
-const slackAuthToken = process.env.SLACK_AUTH_TOKEN;
 
 /*
- *  Send confirmation creation confirmation via
- *  chat.postMessage to the user who created it
+ *  Send confirmation via chat.postMessage to the user who clipped it
  */
 
-const sendConfirmation = (confirmation) => {
+// Currently, Actions + DM combo has known issue when you're using the workspace tokens
+// DM works for the user installed the app, and only after other user manually add the app
+// We are still investing the issue
+
+const sendConfirmation = (userId, data) => {
    let attachments = [
      {
        title: 'Message clipped!',
        // This should be the link in the ClipIt web app
-       title_link: 'http://example.com/userID/message',
+       title_link: `http://example.com/${userId}/clip`,
        fields: [
          {
            title: 'Message',
-           value: confirmation.message
+           value: data.message
          },
          {
            title: 'Posted by',
-           value: confirmation.send_by,
+           value: data.send_by,
            short: true
          },
          {
            title: 'Importance',
-           value: confirmation.importance,
+           value: data.importance,
            short: true
          },
        ],
@@ -38,27 +39,18 @@ const sendConfirmation = (confirmation) => {
    ];
 
    let message = {
-     token: slackAuthToken,
-     channel: confirmation.userId,
+     token: process.env.SLACK_AUTH_TOKEN,
+     channel: userId,
      attachments: JSON.stringify(attachments)
    };
 
    axios.post(`${apiUrl}/chat.postMessage`, qs.stringify(message))
+    .then((result => {
+      //console.log(result.data);
+    }))
     .catch((err) => {
       console.log(err);
     });
  }
 
-// Create helpdesk confirmation. Call users.find to get the user's email address
-// from their user ID
-const createConfirmation = (userId, submission) => {
-  const confirmation = {
-    userId: userId,
-    message: submission.message,
-    send_by:submission.send_by,
-    importance: submission.importance
-  };
-  sendConfirmation(confirmation);
-}
-
-module.exports = { createConfirmation, sendConfirmation };
+module.exports = { sendConfirmation };

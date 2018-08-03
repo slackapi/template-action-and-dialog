@@ -78,7 +78,7 @@ app.post('/actions', (req, res) => {
       // create a ClipIt and prepare to export it to the theoritical external app
       exportNote.exportToJson(submission);
       // DM the user a confirmation message
-      confirmation.createConfirmation(user.id, submission);
+      confirmation.sendConfirmation(user.id, submission);
     }
   }
 });

@@ -18,7 +18,6 @@ const exportToJson = (userId, submission) => {
       obj.messages.push(submission);
       fs.writeFile(fileName, JSON.stringify(obj, null, 2), 'utf8', (err) => {
         if (err) throw err;
-        console.log(`${fileName} has been created`);
       });
     } else {
       fs.readFile(fileName, 'utf8', (err, data) => {
