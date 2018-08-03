@@ -28,7 +28,7 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
 
 ## Setup
 ### Create a Slack app
-1. Create an app at https://api.slack.com/apps?new_app_token=1
+1. Create an app at https://api.slack.com/apps
 2. Navigate to the OAuth & Permissions page and add the following scopes:
     * `commands`
     * `users:read`
@@ -41,10 +41,8 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
     * Either clone this repo and run `npm install`
     * Or visit https://glitch.com/edit/#!/remix/slack-action-and-dialogs-blueprint
 2. Set the following environment variables to `.env` with your API credentials (see `.env.sample`):
-    * `SLACK_CLIENT_ID`: client ID (available at **Basic Information**)
-    * `SLACK_CLIENT_SECRET`: client secret (available at **Basic Information**)
     * `SLACK_VERIFICATION_TOKEN`: Your app's Verification Token (available at **Basic Information**)
-    * `SLACK_ACCESS_TOKEN`: Your app's `xoxa-` workspace token (available once you install your app to a workspace)  
+    * `SLACK_ACCESS_TOKEN`: Your app's access token (available once you install your app to a workspace)  
 3. If you're running the app locally:
     1. Start the app (`npm start`)
     1. In another window, start ngrok on the same port as your webserver
