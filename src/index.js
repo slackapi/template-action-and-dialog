@@ -13,7 +13,7 @@ const qs = require('qs');
 const users = require('./users');
 const confirmation = require('./confirmation');
 const exportNote = require('./exportNote');
-const signature = require('./verify');
+const signature = require('./verifySignature');
 const app = express();
 
 const apiUrl = 'https://slack.com/api';
@@ -59,7 +59,7 @@ app.post('/actions', (req, res) => {
     getUserInfo.then((userInfoResult) => {
       openDialog(payload, userInfoResult).then((result) => {
         if(result.data.error) {
-          //console.log(result.data);
+          console.log(result.data);
           res.sendStatus(500);
         } else {
           res.sendStatus(200);

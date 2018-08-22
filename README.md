@@ -36,9 +36,10 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
 ### Create a Slack app
 1. Create an app at https://api.slack.com/apps?new_app_token=1
 2. Navigate to the OAuth & Permissions page and add the following scopes:
-    * `commands`
-    * `users:read`
-    * `chat:write`
+    * `commands` (required for Actions)
+    * `users:read` (need to get user info *e.g.* full names)
+    * `chat:write` (required for posting messages)
+    * `conversations.app_home:create` (required for the app to DM anybody)
 3. Click 'Save Changes' and install the app
 ​
 #### Run locally or [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/slack-action-and-dialogs-blueprint)
