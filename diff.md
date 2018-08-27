@@ -6,24 +6,6 @@ Now all the Blueprints examples have been updated with new Slack platform featur
 
 To create a new "workspace app" at [https://api.slack.com/apps?new_app_token=1](https://api.slack.com/apps?new_app_token=1), instead of using the previous App creation page.
 
-## OAuth Scopes
-
-Some scopes are no longer valid with workspace apps.
-
-In previous example, these scopes were required:
-* `commands`
-* `users:read`
-* `chat:write`
-
-In the new version, you need to enable:
-* `commands`
-* `users:read`
-* `chat:write` 
-* `conversations.app_home:create` (to be able to DM anybody)
-
-Notice that the `bot` scope is no longer supported because there is a no "bot user" for the new workspace apps.
-
-You can learn more about scopes at [https://api.slack.com/scopes](https://api.slack.com/scopes)
 
 ## OAuth Token
 
