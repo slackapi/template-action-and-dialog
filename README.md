@@ -1,7 +1,7 @@
 # Message Action and Dialog Blueprint
 ​
 
-*Updated August 2018: As we have introduced the workspace app (currently in beta), this tutorial and the code samples have been updated using the new token model! All the changes from the previous version of this example, read the [DIFF.md](DIFF.md)*
+> :sparkles: *Updated August 2018: As we have introduced the workspace app (currently in beta), this tutorial and the code samples have been updated using the new token model! All the changes from the previous version of this example, read the [DIFF.md](DIFF.md)*
 
 *Learn more about the workspace app at the [Slack API doc](https://api.slack.com/workspace-apps-preview).*
 
