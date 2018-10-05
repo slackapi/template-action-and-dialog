@@ -32,11 +32,11 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
 
 ## Setup
 ### Create a Slack app
-1. Create an app at https://api.slack.com/apps?new_app_token=1
+1. Create an app at https://api.slack.com/apps
 2. Navigate to the OAuth & Permissions page and add the following scopes:
     * `commands` (required for Actions)
     * `users:read` (need to get user info *e.g.* full names)
-    * `chat:write` (required for posting messages)
+    * `chat:write:bot` (required for posting messages)
 3. Click 'Save Changes' and install the app
 ​
 #### Run locally or [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/slack-action-and-dialogs-blueprint)
@@ -45,7 +45,7 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
     * Either clone this repo and run `npm install`
     * Or visit https://glitch.com/edit/#!/remix/slack-action-and-dialogs-blueprint
 2. Set the following environment variables to `.env` with your API credentials (see `.env.sample`):
-    * `SLACK_ACCESS_TOKEN`: Your app's bot token, `xoxb-` (or `xoxa-`) token (available on the Install App page)
+    * `SLACK_ACCESS_TOKEN`: Your app's bot token, `xoxb-` token (available on the Install App page, after you install the app to a workspace once.)
     * `SLACK_SIGNING_SECRET`: Your app's Signing Secret (available on the **Basic Information** page)to a workspace)  
 3. If you're running the app locally:
     1. Start the app (`npm start`)
