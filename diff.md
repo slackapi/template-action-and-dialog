@@ -4,7 +4,7 @@ Now all the Blueprints examples have been updated with new Slack platform featur
 
 ## OAuth Token
 
-Your OAuth access token should begins with `-xoxb` instead of `-xoxp`. The bot tokens will be the defaul token in future.
+Your OAuth access token should begins with `-xoxb` instead of `-xoxp`. The bot tokens will be the default token in future.
 
 
 ## Sigining Secret 
