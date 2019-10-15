@@ -7,7 +7,7 @@ const fs = require('fs');
  *  Ideally, you should be using a DB. 
  */
 
-const exportToJson = (userId, submission) => {
+const exportToJson = (userId, view) => {
   const fileName = `clip_${userId}.json`;
 
   fs.open(fileName, 'r', (err, data) => {
@@ -15,7 +15,7 @@ const exportToJson = (userId, submission) => {
       let obj = {
          messages: []
       };
-      obj.messages.push(submission);
+      obj.messages.push(view);
       fs.writeFile(fileName, JSON.stringify(obj, null, 2), 'utf8', (err) => {
         if (err) throw err;
         console.log(`${fileName} has been created`);
@@ -25,7 +25,7 @@ const exportToJson = (userId, submission) => {
         if (err) throw err;
 
         let obj = JSON.parse(data); // Object
-        obj.messages.push(submission);
+        obj.messages.push(view);
 
         fs.writeFile(fileName, JSON.stringify(obj, null, 2), 'utf8', (err) => {
           if (err) throw err;

@@ -6,11 +6,12 @@
 
 'use strict';
 
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const qs = require('qs');
-const users = require('./users');
 const confirmation = require('./confirmation');
 const exportNote = require('./exportNote');
 const signature = require('./verifySignature');
@@ -41,87 +42,130 @@ app.use(bodyParser.json({ verify: rawBodyBuffer }));
 
 app.post('/actions', (req, res) => {
   const payload = JSON.parse(req.body.payload);
-  const {type, user, submission} = payload;
+  const {type, user, view} = payload;
   if (!signature.isVerified(req)) {
     res.sendStatus(404);
     return;
   }
 
   if(type === 'message_action') {
-    // Get user info of the person who posted the original message from the payload
-    const getUserInfo = new Promise((resolve, reject) => {
-      users.find(payload.message.user).then((result) => {
-        resolve(result.data.user.profile.real_name);
-      }).catch((err) => { reject(err); });
+    openModal(payload).then((result) => {
+      if(result.data.error) {
+        console.log(result.data);
+        res.sendStatus(500);
+      } else {
+        res.sendStatus(200);
+      }
+    }).catch((err) => {
+      res.sendStatus(500);
     });
 
-    // Once successfully get the user info, open a dialog with the info
-    getUserInfo.then((userInfoResult) => {
-      openDialog(payload, userInfoResult).then((result) => {
-        if(result.data.error) {
-          console.log(result.data);
-          res.sendStatus(500);
-        } else {
-          res.sendStatus(200);
-        }
-      }).catch((err) => {
-        res.sendStatus(500);
-      });
 
-    })
-    .catch((err) => { console.error(err); });
-
-  } else if (type === 'dialog_submission') {
+  } else if (type === 'view_submission') {
     // immediately respond with a empty 200 response to let
     // Slack know the command was received
     res.send('');
     // create a ClipIt and prepare to export it to the theoritical external app
-    exportNote.exportToJson(user.id, submission);
+    exportNote.exportToJson(user.id, view);
     // DM the user a confirmation message
-    confirmation.sendConfirmation(user.id, submission);
+    confirmation.sendConfirmation(user.id, view);
   }
 });
 
 // open the dialog by calling dialogs.open method and sending the payload
-const openDialog = (payload, real_name) => {
+const openModal = (payload) => {
 
-  const dialogData = {
+  const viewData = {
     token: process.env.SLACK_ACCESS_TOKEN,
     trigger_id: payload.trigger_id,
-    dialog: JSON.stringify({
-      title: 'Save it to ClipIt!',
+    view: JSON.stringify({
+      type: 'modal',
+      title: {
+        type: 'plain_text',
+        text: 'Save it to ClipIt!'
+      },
       callback_id: 'clipit',
-      submit_label: 'ClipIt',
-      elements: [
-         {
-           label: 'Message Text',
-           type: 'textarea',
-           name: 'message',
-           value: payload.message.text
-         },
-         {
-           label: 'Posted by',
-           type: 'text',
-           name: 'send_by',
-           value: `${real_name}`
-         },
-         {
-           label: 'Importance',
-           type: 'select',
-           name: 'importance',
-           value: 'Medium 💎',
-           options: [
-             { label: 'High', value: 'High 💎💎✨' },
-             { label: 'Medium', value: 'Medium 💎' },
-             { label: 'Low', value: 'Low ⚪️' }
-           ],
-         },
+      submit: {
+        type: 'plain_text',
+        text: 'ClipIt'
+      },
+      blocks: [
+        {
+          block_id: 'message',
+          type: 'input',
+          element: {
+            action_id: 'message_id',
+            type: 'plain_text_input',
+            multiline: true,
+            initial_value: payload.message.text
+          },
+          label: {
+            type: 'plain_text',
+            text: 'Message Text'
+          }
+        },
+        {
+          block_id: 'user',
+          type: 'input',
+          element: {
+            action_id: 'user_id',
+            type: 'users_select',
+            initial_user: payload.message.user
+          },
+          label: {
+            type: 'plain_text',
+            text: 'Message Text'
+          }
+        },
+        {
+          block_id: 'importance',
+          type: 'input',
+          element: {
+            action_id: 'importance_id',
+            type: 'static_select',
+            placeholder: {
+              type: 'plain_text',
+              text: 'Select importance',
+              emoji: true
+            },
+            options: [
+              {
+                text: {
+                  type: 'plain_text',
+                  text: 'High 💎💎✨',
+                  emoji: true
+                },
+                value: 'high'
+              },
+              {
+                text: {
+                  type: 'plain_text',
+                  text: 'Medium 💎',
+                  emoji: true
+                },
+                value: 'medium'
+              },
+              {
+                text: {
+                  type: 'plain_text',
+                  text: 'Low ⚪️',
+                  emoji: true
+                },
+                value: 'low'
+              }
+            ]
+          },
+          label: {
+            type: 'plain_text',
+            text: 'Importance'
+          }
+        }
       ]
     })
   };
 
   // open the dialog by calling dialogs.open method and sending the payload
-  const promise = axios.post(`${apiUrl}/dialog.open`, qs.stringify(dialogData));
+  const promise = axios.post(`${apiUrl}/views.open`, qs.stringify(viewData));
   return promise;
 };
 
