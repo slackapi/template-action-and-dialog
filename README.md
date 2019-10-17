@@ -43,11 +43,11 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
     * `bot` (required for a bot user)
 4. Click 'Save Changes' and install the app
 ​
-#### Run locally or [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/slack-clipit-simplified)
+#### Run locally or [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/slack-action-and-modal-blueprint)
 
 1. Get the code
     * Either clone this repo and run `npm install`
-    * Or visit https://glitch.com/~slack-clipit-simplified
+    * Or visit https://glitch.com/~slack-action-and-modal-blueprint
 2. Set the following environment variables to `.env` with your API credentials (see `.env.sample`):
     * `SLACK_ACCESS_TOKEN`: Your app's bot token, `xoxb-` token (available on the Install App page, after you install the app to a workspace once.)
     * `SLACK_SIGNING_SECRET`: Your app's Signing Secret (available on the **Basic Information** page)to a workspace)  
