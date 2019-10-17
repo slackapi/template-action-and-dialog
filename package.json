@@ -17,7 +17,7 @@
   "author": "Tomomi Imura & David Pichsenmeister　<opensource@slack.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": ">=0.18.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "qs": "^6.5.1",
