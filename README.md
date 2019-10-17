@@ -30,6 +30,9 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
 ​
 ![ClipIt](https://cdn.glitch.com/441299e3-79ff-44b2-9688-4ade057797c8%2Fscreen_actions_dialogs_demo.gif?1526686807617)
 
+### App Flow 
+![diagram](https://cdn.glitch.com/802be3e8-445a-4f15-9fb4-966573ebed75%2Factions_and_modals.png?v=1571270384477)
+
 ## Setup
 ### Create a Slack app
 1. Create an app at https://api.slack.com/apps

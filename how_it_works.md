@@ -1,4 +1,4 @@
-# Message Action and Dialog Blueprint
+# Message Action and Modal Blueprint
 
 This demo app allow users to export a message in Slack from the message action menu to a 3rd party system (let's call the fictional app *ClipIt*) using
 a [message actions](https://api.slack.com/actions) and a [Dialog](https://api.slack.com/dialogs).
@@ -38,14 +38,14 @@ Payload example:
 
 The payload also include the user ID of the person who originally posted the message. This example app uses the ID to call `users.info` method to get the person's full name. You can obtain more info of the user like avatar, if you wish. See [`users.info`](https://api.slack.com/methods/users.info).
 
-#### 2. Open a Dialog
+#### 2. Open a modal
 
-In order to let the user to edit the message to be saved in the 3rd party app, the app will open a Dialog in Slack. When the user submits the Dialog, Slack will send a POST request to the same request URL used for the message action. To differentiate which action triggers the event, parse the payload and check the `type`.
+In order to let the user to edit the message to be saved in the 3rd party app, the app will open a modal in Slack. When the user submits the modal, Slack will send a POST request to the same request URL used for the message action. To differentiate which action triggers the event, parse the payload and check the `type` (`type="view_submission"`).
 
 #### 3. Confirm the user
 
-Once the user submit the dialog, this example app export the message in a JSON (where you probably want to do something else to work with your own app and service, such as save in a DB). In the meantime, the app notifies the user by sending a DM using `chat.postMessage` method. To do so, you need to enable the `users:read` scope.
+Once the user submit the modal, this example app export the message in a JSON (where you probably want to do something else to work with your own app and service, such as save in a DB). In the meantime, the app notifies the user by sending a DM using `chat.postMessage` method. To do so, you need to enable the `users:read` scope.
 
-## Diagram
+## App Flow Diagram
 
-![Dialog](images/actions_and_dialogs.png)
+![Dialog](https://cdn.glitch.com/802be3e8-445a-4f15-9fb4-966573ebed75%2Factions_and_modals.png?v=1571270384477)
