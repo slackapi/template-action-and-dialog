@@ -14,7 +14,10 @@
     "chatbot",
     "slack API"
   ],
-  "author": "Tomomi Imura & David Pichsenmeister　<opensource@slack.com>",
+  "authors": [
+    "Tomomi Imura <opensource@slack.com>",
+    "David Pichsenmeister <opensource@slack.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "axios": ">=0.18.1",
