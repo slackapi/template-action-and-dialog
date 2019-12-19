@@ -13,9 +13,7 @@ const sendConfirmation = async (userId, view) => {
   // open a DM channel with the user to receive the channel ID
   let user = await api.callAPIMethod('im.open', {
     user: userId
-  })
-
-  console.log(user)
+  });
 
   const messageData = payloads.confirmation({
     channel_id: user.channel.id,

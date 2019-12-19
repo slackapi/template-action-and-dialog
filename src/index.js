@@ -14,7 +14,7 @@ const confirmation = require('./confirmation');
 const exportNote = require('./exportNote');
 const signature = require('./verifySignature');
 const payloads = require('./payloads');
-const api = require('./api')
+const api = require('./api');
 const app = express();
 
 /*
@@ -48,7 +48,7 @@ app.post('/actions', async (req, res) => {
     case 'message_action':
       let result = await openModal(payload)
       if (result.error) {
-        console.log(result);
+        console.log(result.error);
         return res.status(500).send();
       }
       return res.status(200).send();
