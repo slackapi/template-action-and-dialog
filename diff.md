@@ -2,6 +2,21 @@
 
 Now all the Blueprints examples have been updated with new Slack platform features. So what are the *diffs* in this updated example?
 
+
+---
+## Changes made in January 2020
+
+### OAuth Scopes and Permission
+
+We’ve made major improvements to the way scopes work for apps. The bot scope used to be very broad and permissive, but now you can request more specific and granular permissions for your app.
+
+This sample app used to need only bot scope, but now you need the `chat:write` to allow the bot to post messages in channels. But no other actions.
+
+We recommend selecting only the scopes your app needs. Requesting too many scopes can cause your app to be restricted by a team’s Admin or App Manager.
+
+Please read [Scopes and permissions](https://api.slack.com/scopes) to figure out which scopes you need.
+
+
 ---
 ## Changes made in October 2019
 
@@ -12,6 +27,11 @@ Now all the Blueprints examples have been updated with new Slack platform featur
 We released [Modals](https://api.slack.com/block-kit/surfaces/modals), which is replacing the existing Dialogs, with more powerful features.
 
 Now, instead of calling an API to open a dialog is replaced with the new view API to open a modal with Block Kit in the code sample.
+
+### Block Kit
+We introduced Block Kit UI framework that allows you to create messages with the components called blocks. If you have been creating messages with the legacy "attatchment", please consider switching to Blcok Kit!
+
+Read more at: [Block Kit](https://api.slack.com/block-kit)
 
 ---
 ## Changes made in October 2018
