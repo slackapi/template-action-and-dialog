@@ -1,14 +1,14 @@
 # Blueprint: Message Action and ~~Dialog~~ Modal (NEW!) 
 ​
 
-> :sparkles: *Updated October 2019: As we have introduced some new features, this tutorial and the code samples have been updated! All the changes from the previous version of this example, read the [DIFF.md](DIFF.md)*
+> :sparkles: *Updated January 2020: As we have introduced some new features, this tutorial and the code samples have been updated! All the changes from the previous version of this example, read the [DIFF.md](DIFF.md)*
 
 
 By registering your app's capabilities as message actions, users can pick and choose messages to send to your app so you can do something useful with them. Store these messages in a virtual trapper keeper, feed them to your internal markov chain bot, or file away information about an important lead.
 
 ## Creating "ClipIt" app using an action and a dialog
 
-![App icon](images/icon_small.png) This fictional Slack app, "ClipIt" allows users to "clip" a message posted on Slack by using the actions to export the message to JSON to be used in the external 3rd party app/service, let's say, "ClipIt web app".
+![App icon](images/icon_small.png) This fictional Slack app, "ClipIt" allows users to "clip" a message posted on Slack by using the actions to export the message to JSON to be used in the external app/service, let's say, "ClipIt web app".
 
 ### Developer Use-Cases
 
@@ -24,7 +24,7 @@ Also, the message action would be great for:
 ### User Work Flow
 
 When a user hover a message then choose "Clip the message" from the action menu, a dialog pops open.
-The message text is pre-populated into the dialog box, but the user can edit before submitting it too.
+The message text is pre-populated into the modal box, but the user can edit before submitting it too.
 Once a user finalize the form and submit, the app DMs the user with the confirmation.
 
 ​
@@ -34,14 +34,16 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
 ![diagram](https://cdn.glitch.com/802be3e8-445a-4f15-9fb4-966573ebed75%2Factions_and_modals.png?v=1571270384477)
 
 ## Setup
+
 ### Create a Slack app
+
 1. Create an app at https://api.slack.com/apps
-2. Go to *Bot Users* and click "Add a Bot User" to create a, app bot. Save the change.
-3. Navigate to the OAuth & Permissions page and add the following bot token scopes:
+2. Navigate to the OAuth & Permissions page and add the following bot token scopes:
     * `commands` (required for Actions)
     * `chat:write` (required to send messages as a bot user)
     * `im:write` (required to open a DM channel between your bot and a user)
-4. Click 'Save Changes' and install the app
+3. Click 'Save Changes' and install the app
+
 ​
 #### Run locally or [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/slack-action-and-modal-blueprint)
 
