@@ -10,14 +10,12 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const axios = require('axios');
-const qs = require('qs');
 const confirmation = require('./confirmation');
 const exportNote = require('./exportNote');
 const signature = require('./verifySignature');
+const payloads = require('./payloads');
+const api = require('./api');
 const app = express();
-
-const apiUrl = 'https://slack.com/api';
 
 /*
  * Parse application/x-www-form-urlencoded && application/json
@@ -31,7 +29,7 @@ const rawBodyBuffer = (req, res, buf, encoding) => {
   }
 };
 
-app.use(bodyParser.urlencoded({verify: rawBodyBuffer, extended: true }));
+app.use(bodyParser.urlencoded({ verify: rawBodyBuffer, extended: true }));
 app.use(bodyParser.json({ verify: rawBodyBuffer }));
 
 /*
@@ -40,134 +38,44 @@ app.use(bodyParser.json({ verify: rawBodyBuffer }));
 /* Scope: `command` to enable actions
  */
 
-app.post('/actions', (req, res) => {
+app.post('/actions', async (req, res) => {
+  if (!signature.isVerified(req)) return res.status(404).send();
+
   const payload = JSON.parse(req.body.payload);
-  const {type, user, view} = payload;
-  if (!signature.isVerified(req)) {
-    res.sendStatus(404);
-    return;
-  }
+  const { type, user, view } = payload;
 
-  if(type === 'message_action') {
-    openModal(payload).then((result) => {
-      if(result.data.error) {
-        console.log(result.data);
-        res.sendStatus(500);
-      } else {
-        res.sendStatus(200);
+  switch (type) {
+    case 'message_action':
+      let result = await openModal(payload)
+      if (result.error) {
+        console.log(result.error);
+        return res.status(500).send();
       }
-    }).catch((err) => {
-      res.sendStatus(500);
-    });
-
-
-  } else if (type === 'view_submission') {
-    // immediately respond with a empty 200 response to let
-    // Slack know the command was received
-    res.send('');
-    // create a ClipIt and prepare to export it to the theoritical external app
-    exportNote.exportToJson(user.id, view);
-    // DM the user a confirmation message
-    confirmation.sendConfirmation(user.id, view);
+      return res.status(200).send();
+    case 'view_submission':
+      // immediately respond with a empty 200 response to let
+      // Slack know the command was received
+      res.send('');
+      // create a ClipIt and prepare to export it to the theoritical external app
+      exportNote.exportToJson(user.id, view);
+      // DM the user a confirmation message
+      confirmation.sendConfirmation(user.id, view);
+      break;
   }
 });
 
 // open the dialog by calling dialogs.open method and sending the payload
-const openModal = (payload) => {
+const openModal = async (payload) => {
 
-  const viewData = {
-    token: process.env.SLACK_ACCESS_TOKEN,
+  const viewData = payloads.openModal({
     trigger_id: payload.trigger_id,
-    view: JSON.stringify({
-      type: 'modal',
-      title: {
-        type: 'plain_text',
-        text: 'Save it to ClipIt!'
-      },
-      callback_id: 'clipit',
-      submit: {
-        type: 'plain_text',
-        text: 'ClipIt'
-      },
-      blocks: [
-        {
-          block_id: 'message',
-          type: 'input',
-          element: {
-            action_id: 'message_id',
-            type: 'plain_text_input',
-            multiline: true,
-            initial_value: payload.message.text
-          },
-          label: {
-            type: 'plain_text',
-            text: 'Message Text'
-          }
-        },
-        {
-          block_id: 'user',
-          type: 'input',
-          element: {
-            action_id: 'user_id',
-            type: 'users_select',
-            initial_user: payload.message.user
-          },
-          label: {
-            type: 'plain_text',
-            text: 'Message Text'
-          }
-        },
-        {
-          block_id: 'importance',
-          type: 'input',
-          element: {
-            action_id: 'importance_id',
-            type: 'static_select',
-            placeholder: {
-              type: 'plain_text',
-              text: 'Select importance',
-              emoji: true
-            },
-            options: [
-              {
-                text: {
-                  type: 'plain_text',
-                  text: 'High 💎💎✨',
-                  emoji: true
-                },
-                value: 'high'
-              },
-              {
-                text: {
-                  type: 'plain_text',
-                  text: 'Medium 💎',
-                  emoji: true
-                },
-                value: 'medium'
-              },
-              {
-                text: {
-                  type: 'plain_text',
-                  text: 'Low ⚪️',
-                  emoji: true
-                },
-                value: 'low'
-              }
-            ]
-          },
-          label: {
-            type: 'plain_text',
-            text: 'Importance'
-          }
-        }
-      ]
-    })
-  };
+    user_id: payload.message.user,
+    text: payload.message.text
+  })
 
-  // open the dialog by calling dialogs.open method and sending the payload
-  const promise = axios.post(`${apiUrl}/views.open`, qs.stringify(viewData));
-  return promise;
+  return await api.callAPIMethod('views.open', viewData)
 };
+
 
 const server = app.listen(process.env.PORT || 5000, () => {
   console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);

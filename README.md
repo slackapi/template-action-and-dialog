@@ -36,11 +36,14 @@ Once a user finalize the form and submit, the app DMs the user with the confirma
 ## Setup
 
 ### Create a Slack app
-1. Create an app at https://api.slack.com/apps?new_granular_bot_app=1
-2. Navigate to the OAuth & Permissions page and add the following Bot token scopes:
+
+1. Create an app at https://api.slack.com/apps
+2. Navigate to the OAuth & Permissions page and add the following bot token scopes:
     * `commands` (required for Actions)
-    * `chat:write` (required for posting messages)
+    * `chat:write` (required to send messages as a bot user)
+    * `im:write` (required to open a DM channel between your bot and a user)
 3. Click 'Save Changes' and install the app
+
 ​
 #### Run locally or [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/slack-action-and-modal-blueprint)
 
